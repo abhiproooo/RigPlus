@@ -21,10 +21,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4.0.4
         with:
-          api-level: 34
-          target: google-apis
+          packages: 'platform-tools'
 
       - name: Setup Android NDK r25c
         uses: nttld/setup-ndk@v1
