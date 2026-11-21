@@ -26,10 +26,10 @@ jobs:
           api-level: 34
           target: google-apis
 
-      - name: Setup Android NDK 25.1.8937393
-        uses: android-actions/setup-ndk@v3
+      - name: Setup Android NDK r25c
+        uses: nttld/setup-ndk@v1
         with:
-          ndk-version: 25.1.8937393
+          ndk-version: r25c
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
