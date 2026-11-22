@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Undo
+import androidx.compose.material.icons.filled.Filled
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,11 +50,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.tint
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.AndroidView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.weight
+import android.view.SurfaceView
+import android.view.SurfaceHolder
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -233,13 +237,13 @@ fun LeftPanel(
             icon = Icons.Default.CameraAlt,
             label = "Camera"
         )
-        ToolButton(
-            tool = Tool.Workspace,
-            activeTool = activeTool,
-            onClick = { onPanelToggle(Panel.Layers) },
-            icon = Icons.Default.ContentCopy,
-            label = "Workspace"
-        )
+ToolButton(
+                tool = Tool.Workspace,
+                activeTool = activeTool,
+                onClick = { onPanelToggle(Panel.Layers) },
+                icon = Filled.ContentCopy,
+                label = "Workspace"
+            )
     }
 }
 
@@ -248,7 +252,7 @@ fun ToolButton(
     tool: Tool,
     activeTool: Tool,
     onClick: () -> Unit,
-    icon: androidx.compose.material.icons.filled.Add,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
     label: String
 ) {
     val isActive = (activeTool == tool)
@@ -367,6 +371,55 @@ fun BottomPanel(
             Text(text = "Timeline Track - TODO", color = Color.White.copy(alpha = 0.6f))
         }
     }
+}
+
+@Composable
+fun CanvasView(modifier: Modifier = Modifier) {
+    val renderer = remember { CanvasRenderer() }
+    var surfaceHolder: SurfaceHolder? = null
+
+    AndroidView(
+        modifier = modifier,
+        factory = { context ->
+            SurfaceView(context).apply {
+                setZOrderOnTop(true)
+                holder.setFormat(android.graphics.PixelFormat.TRANSPARENT)
+                holder.addCallback(object : SurfaceHolder.Callback {
+                    override fun surfaceCreated(holder: SurfaceHolder) {
+                        surfaceHolder = holder
+                        val width = width
+                        val height = height
+                        if (width > 0 && height > 0) {
+                            renderer.nativeInit(holder.surface, width, height)
+                        }
+                    }
+
+                    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+                        if (width > 0 && height > 0) {
+                            renderer.nativeResize(width, height)
+                        }
+                    }
+
+                    override fun surfaceDestroyed(holder: SurfaceHolder) {
+                        renderer.nativeDestroy()
+                        surfaceHolder = null
+                    }
+                })
+            }
+        },
+        update = { surfaceView ->
+            if (surfaceHolder != null) {
+                val canvas = surfaceHolder!!.lockCanvas()
+                if (canvas != null) {
+                    try {
+                        renderer.nativeDraw()
+                    } finally {
+                        surfaceHolder!!.unlockCanvasAndPost(canvas)
+                    }
+                }
+            }
+        }
+    )
 }
 
 @Composable

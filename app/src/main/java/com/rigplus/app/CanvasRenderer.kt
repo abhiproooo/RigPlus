@@ -4,7 +4,9 @@ import android.view.Surface
 
 class CanvasRenderer {
     companion object {
-        System.loadLibrary("native-lib")
+        init {
+            System.loadLibrary("native-lib")
+        }
     }
 
     external fun nativeInit(surface: Surface, width: Int, height: Int)
