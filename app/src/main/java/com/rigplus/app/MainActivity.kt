@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -46,6 +47,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -233,7 +235,7 @@ ToolButton(
                 tool = Tool.Workspace,
                 activeTool = activeTool,
                 onClick = { onPanelToggle(Panel.Layers) },
-                icon = Icons.Filled.ContentCopy,
+                icon = Icons.Default.ContentCopy,
                 label = "Workspace"
             )
     }
@@ -245,7 +247,7 @@ fun ToolButton(
     tool: Tool,
     activeTool: Tool,
     onClick: () -> Unit,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     label: String
 ) {
     val isActive = (activeTool == tool)
