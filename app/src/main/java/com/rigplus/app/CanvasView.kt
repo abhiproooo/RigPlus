@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
-fun CanvasView(
+fun CanvasViewWithRenderer(
     modifier: Modifier = Modifier,
     renderer: CanvasRenderer = CanvasRenderer()
 ) {

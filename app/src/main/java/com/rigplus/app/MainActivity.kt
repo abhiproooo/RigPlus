@@ -38,7 +38,7 @@ import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Undo
-import androidx.compose.material.icons.filled.Filled
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,14 +48,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.tint
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.AndroidView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.weight
 import android.view.SurfaceView
 import android.view.SurfaceHolder
 
@@ -135,6 +133,7 @@ enum class Panel {
     None, Style, Swatches, Layers
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
     onUndo: () -> Unit,
@@ -241,12 +240,13 @@ ToolButton(
                 tool = Tool.Workspace,
                 activeTool = activeTool,
                 onClick = { onPanelToggle(Panel.Layers) },
-                icon = Filled.ContentCopy,
+                icon = Icons.Filled.ContentCopy,
                 label = "Workspace"
             )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolButton(
     tool: Tool,
@@ -407,7 +407,7 @@ fun CanvasView(modifier: Modifier = Modifier) {
                 })
             }
         },
-        update = { surfaceView ->
+        update = { surfaceView: SurfaceView ->
             if (surfaceHolder != null) {
                 val canvas = surfaceHolder!!.lockCanvas()
                 if (canvas != null) {
