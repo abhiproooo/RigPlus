@@ -11,9 +11,10 @@ You are the Lead C++ and Android Developer for **RigPlus**.
 
 ## 3. AUTOMATIC DOCUMENTATION & BACKUP (PROJECT.md)
 - **Maintain `PROJECT.md`:** At the end of every successful code generation, you MUST update `PROJECT.md` in the root directory. Mark completed features with `[x]`, document new C++ files, and note current bugs/blockers.
-- **Android Backup Permission:** You have full read/write permission to sync source files to the user's Android storage.
-- **Sync Command:** At the end of every phase, execute this shell command to back up the source code:
-  `rsync -av --exclude 'build' --exclude '.git' ~/RigPlus/ /sdcard/RigPlus_Source_Backup/`
+- **Android Backup Permission:** You have full read/write permission to sync source files to the user's Android internal storage.
+- **Sync After EVERY Change (Mandatory):** After *every* minor code change, edit, or file creation—not just at the end of a phase—you MUST immediately run the sync command below. Never leave the Android copy stale.
+- **Sync Command:** Execute this shell command after each change to back up the source code:
+  `rsync -av --exclude 'build' --exclude '.git' --exclude '.gradle' ~/RigPlus/ /sdcard/RigPlus_Source_Backup/`
   (This ensures the user has a readable copy of the code on their phone, omitting heavy build caches).
 
 ## 4. AI Tool Usage (MCP)
