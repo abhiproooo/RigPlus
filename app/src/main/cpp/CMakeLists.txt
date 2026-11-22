@@ -15,7 +15,6 @@ add_library(
     native-lib
     SHARED
     native-lib.cpp
-    thorvg_renderer.cpp
 )
 
 target_include_directories(
@@ -52,11 +51,4 @@ target_link_libraries(
     ${android-lib}
     ${EGL-lib}
     ${GLESv2-lib}
-)
-
-target_include_directories(
-    native-lib
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${thorvg_SOURCE_DIR}/src
 )

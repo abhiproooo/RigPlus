@@ -60,3 +60,9 @@ Do not move to the next phase until the user explicitly says "Phase complete, mo
 - **Kotlin:** 1.9.20
 - **Compose Compiler:** 1.5.4
 - **Android Gradle Plugin:** 8.2.2
+
+## 10. STRICT FILE & VERSION INTEGRITY
+- **No Hallucinated Files:** NEVER reference or include files in `CMakeLists.txt` or `#include` directives that do not physically exist in the folder. Check the directory tree before writing build scripts.
+- **Version Pinning:** NEVER guess Kotlin/Compose versions. Always read `app/build.gradle.kts` to verify the exact `kotlinCompilerExtensionVersion` before writing any Kotlin code.
+- **No C++ Boilerplate Bloat:** Do not split C++ logic into multiple files (e.g., `renderer.cpp`, `math.cpp`) unless explicitly instructed. Keep `native-lib.cpp` as the single source of truth until the codebase exceeds 1000 lines.
+- **Validate Imports:** Before finalizing any Kotlin Compose file, do a final pass to ensure every `Icon`, `Modifier`, and `ImageVector` used in the file has a corresponding `import` statement at the top.
