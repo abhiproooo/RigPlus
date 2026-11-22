@@ -57,6 +57,6 @@ Do not move to the next phase until the user explicitly says "Phase complete, mo
 - **Phase 9: Video Export & Library** (MediaCodec rendering, Asset Library UI).
 
 ## 9. Version Alignment (Fixed 2026-11-22)
-- **Kotlin:** 1.9.22 (downgraded from 2.0.0)
-- **Compose Compiler:** 1.5.10
+- **Kotlin:** 1.9.20
+- **Compose Compiler:** 1.5.4
 - **Android Gradle Plugin:** 8.2.2

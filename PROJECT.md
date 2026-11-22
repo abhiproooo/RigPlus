@@ -59,6 +59,7 @@ Phase 1 complete. The app now:
 Waiting for user confirmation to proceed to Phase 2.
 
 ## Notes
+- Version alignment: Kotlin 1.9.20, Compose Compiler 1.5.4, AGP 8.2.2.
 - Do NOT move to Phase 2 until user says "Phase complete, move to next Phase."
 - User compiles via GitHub Actions on `ubuntu-latest`.
 - Backup command at end of each phase: `rsync -av --exclude 'build' --exclude '.git' ~/RigPlus/ /sdcard/RigPlus_Source_Backup/`
